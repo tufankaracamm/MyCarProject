@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Managerlar oluşturulacak 
+//Managerlar Düzeltilecek 
+
+
 namespace Business.Concrete
 {
     public class CarManager : ICarService
@@ -35,26 +39,27 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
-        public IResult Delete(Car car)
-        {
-            _IcarDal.Delete(car);
-            return new SuccessResult(Messages.CarDeleted);
-        }
+        
 
-        public IDataResult<List<Car>> Get(int id)
+        public IDataResult<Car> Get(int id)
         {
-            return new SuccessDataResult<List<Car>>(_IcarDal.GetAll(c => c.CarId == id));
+            return new SuccessDataResult<Car>(_IcarDal.Get(c => c.Id == id));
         }
 
         public IResult Update(Car car)
         {
-            _IcarDal.Update(car);
+            var result = _IcarDal.Get(c => c.Id == car.Id);
+            if(result == null)
+            {
+                return new ErrorResult("Araba Bulunamadı");
+            }
+             _IcarDal.Update(car);
             return new SuccessResult(Messages.Updated);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 21)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MainteNanceTime);
             }
@@ -70,5 +75,18 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_IcarDal.GetCarDetailDtos()) ;
         }
+
+        public IResult Delete(int id)
+        {
+            //delete ederken id al id yi getByid ile al dal daki delete e getbyid den gelen nesneyi ver
+            var result = _IcarDal.Get(p => p.Id == id);
+            if(result == null)
+            {
+                return new ErrorResult("Araba Bulunamadı");
+            }
+            _IcarDal.Delete(result);
+            return new SuccessResult();
+        }
     }
+    
 }

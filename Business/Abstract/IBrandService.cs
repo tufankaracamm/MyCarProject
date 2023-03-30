@@ -1,16 +1,15 @@
-﻿using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 
 namespace Business.Abstract
 {
     public interface IBrandService
     {
-        List<Brand> GetAll(); 
-        Brand GetById(int id);
-
+        IDataResult<List<Brand>> GetAll();
+        IDataResult<Brand> Get(int id);
+        IResult Add(Brand Brand);
+        IResult Delete(int id);
+        IResult Update(Brand Brand);
     }
 }
+

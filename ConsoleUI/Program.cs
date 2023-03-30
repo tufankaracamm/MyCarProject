@@ -5,20 +5,14 @@ using Entities.Concrete;
 
 
 
-
-CarManager carManager = new CarManager(new EfCarDal());
-
-var result = carManager.GetAll();
-
-if(result.Success == true)
+CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+var result = customerManager.GetAll();
+foreach (var customer in result.Data)
 {
-	foreach (var car in result.Data)
-	{
-		Console.WriteLine(car.CarName +"/"+ car.Description);
-	}
+	Console.WriteLine(customer.CompanyName);
 }
-else
-{
-	Console.WriteLine(Messages.MainteNanceTime);
-}
+
+
+
+
 

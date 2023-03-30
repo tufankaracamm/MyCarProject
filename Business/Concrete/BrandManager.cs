@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -11,22 +12,46 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-
-        IBrandDal _BrandDal;
+        private IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
-            _BrandDal = brandDal;
+            _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        public IResult Add(Brand Brand)
         {
-            return _BrandDal.GetAll();
+            _brandDal.Add(Brand);
+            return new SuccessResult();
         }
 
-        public Brand GetById(int id)
+        public IResult Delete(int id)
         {
-            return _BrandDal.Get(c => c.BrandId == id);
+            var result = _brandDal.Get(b => b.BrandId == id);
+            if(result == null)
+            {
+                return new ErrorResult("Marka Bulunamadı");
+            }
+            _brandDal.Delete(result);
+            return new SuccessResult();
+        }
+
+        public IDataResult<Brand> Get(int id)
+        {
+            var result = _brandDal.Get(b=> b.BrandId == id);
+            return new SuccessDataResult<Brand>(result);
+        }
+
+        public IDataResult<List<Brand>> GetAll()
+        {
+            var result = _brandDal.GetAll();  
+            return new SuccessDataResult<List<Brand>>(result);
+        }
+
+        public IResult Update(Brand Brand)
+        {
+            _brandDal.Update(Brand);
+            return new SuccessResult();
         }
     }
 }

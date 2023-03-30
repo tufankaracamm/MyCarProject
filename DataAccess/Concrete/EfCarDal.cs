@@ -18,15 +18,18 @@ namespace DataAccess.Concrete
         {
             using (CarContext context = new CarContext())
             {
-                var result = from c in context.Cars
-                             join b in context.Brands
-                             on c.CarId equals b.BrandId
+                var result = from car in context.Cars
+                             join brand in context.Brands
+                             on car.BrandId equals brand.BrandId
+                             join color in context.Colors
+                             on car.ColorId equals color.ColorId
                              select new CarDetailDto
                              {
-                                 CarName = c.CarName,
-                                 CarId = c.CarId,
-                                 BrandName = b.BrandName,
-                                 DailyPrice = c.DailyPrice
+                                 CarName = car.CarName,
+                                 Id = car.Id,
+                                 BrandName = brand.BrandName,
+                                 DailyPrice = car.DailyPrice,
+                                 ColorName = color.ColorName
                                 
                              };
                 return result.ToList();
