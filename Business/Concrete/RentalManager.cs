@@ -42,7 +42,7 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetAll()
         {
             _rentalDal.GetAll();
-            return new SuccessDataResult<List<Rental>>();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
         public IResult Update(Rental Rental)

@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             var result = _customerService.Get(id);
             return result.Success ? Ok(result) : BadRequest();
         }
-        [HttpGet("getall")]
+        [HttpGet("getall")] 
         public IActionResult getall() 
         {
             var result = _customerService.GetAll();

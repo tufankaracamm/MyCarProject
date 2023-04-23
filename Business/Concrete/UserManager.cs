@@ -1,60 +1,33 @@
 ﻿using Business.Abstract;
-using Business.Constant;
-using Core.Utilities.Results;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
 
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        readonly IUserDal _IUserDal;
+        IUserDal _userDal;
 
-        public UserManager()
+        public UserManager(IUserDal userDal)
         {
+            _userDal = userDal;
         }
 
-        public UserManager(IUserDal ıUserdal)
+        public List<OperationClaim> GetClaims(User user)
         {
-            _IUserDal = ıUserdal;
+            return _userDal.GetClaims(user);
         }
 
-        public IResult Add(User User)
+        public void Add(User user)
         {
-
-            _IUserDal.Add(User);
-            return new SuccessResult("Added");
+            _userDal.Add(user);
         }
 
-        public IResult Delete(int id)
+        public User GetByMail(string email)
         {
-            var result = _IUserDal.Get(u=>u.Id == id);
-            if(result ==null)
-            {
-                return new ErrorResult("Kullanıcı bulunamadı");
-            }
-            _IUserDal.Delete(result);
-            return new SuccessResult();
+            return _userDal.Get(u => u.Email == email);
         }
 
-        public IDataResult<User> Get(int id)
-        {
-            return new SuccessDataResult<User>(_IUserDal.Get(c => c.Id == id));
-        }
-
-        public IResult Update(User User)
-        {
-            _IUserDal.Update(User);
-            return new SuccessResult(Messages.Updated);
-        }
-
-        public IDataResult<List<User>> GetAll()
-        {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<User>>(Messages.MainteNanceTime);
-            }
-            return new SuccessDataResult<List<User>>(_IUserDal.GetAll(), Messages.ProductListed);
-        }
+       
     }
 }

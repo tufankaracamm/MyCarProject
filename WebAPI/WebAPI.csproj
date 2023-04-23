@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Uploads\39587879-f43a-4c55-9386-1236bf6fe0fc.jpg" />
+    <Content Remove="wwwroot\Uploads\438a7380-a03d-4a99-9906-e575e086d961.jpg" />
+    <Content Remove="wwwroot\Uploads\b92662bc-7452-415c-ade4-2a1373f389e3.jpg" />
+    <Content Remove="wwwroot\Uploads\defaultImage.jpg" />
+    <Content Remove="wwwroot\Uploads\e8d27c9c-04c2-4f6c-86fd-c1627ce1ed2c.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
@@ -15,6 +25,14 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Uploads\39587879-f43a-4c55-9386-1236bf6fe0fc.jpg" />
+    <None Include="wwwroot\Uploads\438a7380-a03d-4a99-9906-e575e086d961.jpg" />
+    <None Include="wwwroot\Uploads\b92662bc-7452-415c-ade4-2a1373f389e3.jpg" />
+    <None Include="wwwroot\Uploads\defaultImage.jpg" />
+    <None Include="wwwroot\Uploads\e8d27c9c-04c2-4f6c-86fd-c1627ce1ed2c.jpg" />
   </ItemGroup>
 
 </Project>
